@@ -19,7 +19,7 @@ const file2 = {
 
 
 
-const getDiffTree = (dataBefore, dataAfter) => {
+const genDiffTree = (dataBefore, dataAfter) => {
   const keysBefore = _.keys(dataBefore);
   const keysAfter = _.keys(dataAfter);
   const unsortedKeys = _.union(keysBefore, keysAfter); 
@@ -65,5 +65,5 @@ const getDiffTree = (dataBefore, dataAfter) => {
   return sortedKeys.map(defineKeyParams);
 } 
 
-console.log(JSON.stringify(getDiffTree(file1, file2)));
+console.log(JSON.stringify(genDiffTree(file1, file2)));
 
