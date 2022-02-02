@@ -1,19 +1,5 @@
-#!/usr/bin/env node
+
 import _ from 'lodash';
-
-const file1 = {
-    "host": "hexlet.io",
-    "timeout": 50,
-    "proxy": "123.234.53.22",
-    "follow": false
-  };
-
-const file2 = {
-    "timeout": 20,
-    "verbose": true,
-    "host": "hexlet.io"
-};
-
 
 
 
@@ -42,11 +28,12 @@ const genDiffTree = (dataBefore, dataAfter) => {
         value: dataBefore[key]
       }
     } 
-    if (dataBefore[key] == dataAfter[key]) {
+    if (dataBefore[key] !== dataAfter[key]) {
       return {
         name: key,
-        type: 'unchanged',
-        value: dataBefore[key],
+        type: 'changed',
+        value1: dataBefore[key],
+        value2: dataAfter[key]
       }
     }
     if (_.isObject(dataBefore[key]) && _.isObject(dataAfter[key])) {
@@ -65,5 +52,6 @@ const genDiffTree = (dataBefore, dataAfter) => {
   return sortedKeys.map(defineKeyParams);
 } 
 
-console.log(JSON.stringify(genDiffTree(file1, file2)));
+export default genDiffTree;
+
 
