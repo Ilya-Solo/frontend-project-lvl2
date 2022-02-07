@@ -40,7 +40,7 @@ const genDiffTree = (dataBefore, dataAfter) => {
         return {
           name: key,
           type: 'nested',
-          children: getDiffTree(dataBefore[key], dataAfter[key])
+          children: genDiffTree(dataBefore[key], dataAfter[key])
         }
     }
     return {

@@ -1,23 +1,24 @@
 import genDiffTree from './gendiff1.js';
 import fs from 'fs';
 import path from 'path';
+import parse from './parsers.js';
 
 const tab = '  ';
 
 const getData = (configFilePath) => {
     const absolutePath = path.resolve(configFilePath);
-    //const extensionName = path.extname(absolutePath).slice(1);
+    const extensionName = path.extname(absolutePath).slice(1);
     const data = fs.readFileSync(absolutePath, 'utf8');
   
-    return JSON.parse(data);
+    return parse(data, extensionName);
   };
-  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/file1.json');
-  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/file2.json');
+  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/Before.yml');
+  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/After.yml');
   
   
 const added = (obj) => `  -  ${obj.name}: ${obj.value}`;
 const removed = (obj) => `  +  ${obj.name}: ${obj.value}`;
-const nested = (obj) => `    ${obj.name}: ${genDiffTree(obj.value)}`;
+const nested = (obj) => `    ${obj.name}: ${(obj.value).map(mapping)}`;
 const unchanged = (obj) => `     ${obj.name}: ${obj.value}`;
 const changed = (obj) => `  +  ${obj.name}: ${obj.value1}\n  -  ${obj.name}: ${obj.value2}`
 const mapping = (obj) => {
