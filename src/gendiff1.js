@@ -12,41 +12,43 @@ const genDiffTree = (dataBefore, dataAfter) => {
   const sortedKeys = unsortedKeys.sort();
 
   const defineKeyParams = (key) => {
-  
-    
+    const value1 = dataBefore[key];
+    const value2 = dataAfter[key];
+
+    if (_.isObject(value1) && _.isObject(value2)) {
+      return {
+        key,
+        type: 'nested',
+        value1: genDiffTree(value1, value2)
+      }
+  }
     if (!_.has(dataBefore, key)) {
       return {
-        name: key,
+        key,
         type: 'added',
-        value: dataAfter[key]
+        value2
       }
     }
     if (!_.has(dataAfter, key)) {
       return {
-        name: key,
+        key,
         type: 'removed',
-        value: dataBefore[key]
+        value1
       }
     } 
-    if (dataBefore[key] !== dataAfter[key]) {
+    if (value1 !== value2) {
       return {
-        name: key,
+        key,
         type: 'changed',
-        value1: dataBefore[key],
-        value2: dataAfter[key]
+        value1,
+        value2
       }
     }
-    if (_.isObject(dataBefore[key]) && _.isObject(dataAfter[key])) {
-        return {
-          name: key,
-          type: 'nested',
-          children: genDiffTree(dataBefore[key], dataAfter[key])
-        }
-    }
+    
     return {
-      name: key,
+      key,
       type: 'unchanged',
-      value: dataBefore[key]
+      value1: dataBefore[key]
     }
   }
   return sortedKeys.map(defineKeyParams);

@@ -2,33 +2,51 @@ import genDiffTree from './gendiff1.js';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers.js';
+import _ from 'lodash';
 
-const tab = '  ';
+
+const tab = ' ';
+let tabCount = 1;
+let tabCount2 = 1;
+
+
 
 const getData = (configFilePath) => {
     const absolutePath = path.resolve(configFilePath);
     const extensionName = path.extname(absolutePath).slice(1);
     const data = fs.readFileSync(absolutePath, 'utf8');
-  
+    
     return parse(data, extensionName);
   };
-  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/Before.yml');
-  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/After.yml');
+  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/Before.json');
+  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/After.json');
+
+
+
+const normalizedValue = (value) => {
   
-  
-const added = (obj) => `  -  ${obj.name}: ${obj.value}`;
-const removed = (obj) => `  +  ${obj.name}: ${obj.value}`;
-const nested = (obj) => `    ${obj.name}: ${(obj.value).map(mapping)}`;
-const unchanged = (obj) => `     ${obj.name}: ${obj.value}`;
-const changed = (obj) => `  +  ${obj.name}: ${obj.value1}\n  -  ${obj.name}: ${obj.value2}`
+  if (!_.isObject(value)) {
+    return value;
+  }
+  let padding =  tab.repeat(tabCount += 4);
+  const convertObjectToString = ([key, objectValue]) => {
+     
+    return `\n${padding}${key}: ${normalizedValue(objectValue)}`;
+  }
+  return `{${(Object.entries(value).map(convertObjectToString)).join(``)}\n${tab.repeat(tabCount -= 4)}}`;
+};
+
 const mapping = (obj) => {
-    
-    if(obj.type  === 'removed'){return removed(obj)};
-    if(obj.type  === 'added'){return added(obj)};
-    if(obj.type  === 'changed'){return changed(obj)};
-    if(obj.type  === 'unchanged'){return unchanged(obj)};
-    if(obj.type  === 'nested'){return nested(obj)};
-    
-  };
-  const aaa = genDiffTree(data1, data2).map(mapping).join('\n');
+let newpadding = tab.repeat(tabCount2 += 1);
+const types = {
+   added: () => ` - ${obj.key}: ${normalizedValue(obj.value2)}\n`,
+   removed: () => ` + ${obj.key}: ${normalizedValue(obj.value1)}\n`,
+   nested: () => `   ${obj.key}: {\n${(obj.value1.map(mapping)).join(``)}\n   }\n`,
+   unchanged: () => `   ${obj.key}: ${normalizedValue(obj.value1)}\n`,
+   changed: () => ` - ${obj.key}: ${normalizedValue(obj.value2)}\n + ${obj.key}: ${normalizedValue(obj.value1)}\n`
+  }
+  return types[obj.type]();
+};
+
+  const aaa = ((genDiffTree(data1, data2)).map(mapping)).join('\n');
   console.log(`{\n${aaa}\n}`);
