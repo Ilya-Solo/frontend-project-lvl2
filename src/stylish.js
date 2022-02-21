@@ -6,8 +6,9 @@ import _ from 'lodash';
 
 
 const tab = ' ';
-let tabCount = 1;
-let tabCount2 = 1;
+
+
+
 
 
 
@@ -18,35 +19,56 @@ const getData = (configFilePath) => {
     
     return parse(data, extensionName);
   };
-  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/Before.json');
-  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/After.json');
+  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/Before.json');
+  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/After.json');
 
 
 
-const normalizedValue = (value) => {
+const render = (value, depth, stringify) => {
   
   if (!_.isObject(value)) {
     return value;
   }
-  let padding =  tab.repeat(tabCount += 4);
+  const newDepth = depth + 4;
   const convertObjectToString = ([key, objectValue]) => {
      
-    return `\n${padding}${key}: ${normalizedValue(objectValue)}`;
+    return `${stringify(key, render(objectValue, newDepth, stringify), newDepth, ' ')}`;
   }
-  return `{${(Object.entries(value).map(convertObjectToString)).join(``)}\n${tab.repeat(tabCount -= 4)}}`;
+  return `{\n${(Object.entries(value).map(convertObjectToString)).join(`\n`)}\n${tab.repeat(newDepth - 1)} }`;
 };
+const  stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} ${key}: ${render(value, depth, stringify)}`
 
-const mapping = (obj) => {
-let newpadding = tab.repeat(tabCount2 += 1);
-const types = {
-   added: () => ` - ${obj.key}: ${normalizedValue(obj.value2)}\n`,
-   removed: () => ` + ${obj.key}: ${normalizedValue(obj.value1)}\n`,
-   nested: () => `   ${obj.key}: {\n${(obj.value1.map(mapping)).join(``)}\n   }\n`,
-   unchanged: () => `   ${obj.key}: ${normalizedValue(obj.value1)}\n`,
-   changed: () => ` - ${obj.key}: ${normalizedValue(obj.value2)}\n + ${obj.key}: ${normalizedValue(obj.value1)}\n`
-  }
-  return types[obj.type]();
-};
+  const mapping = {
+    
+      
+    unchanged: (obj, depth) => stringify(obj.key, obj.value1, depth, ' '),
+    removed: (obj, depth) => stringify(obj.key, obj.value1, depth, '-'),
+    added: (obj, depth) => stringify(obj.key, obj.value2, depth, '+'),
+    changed: (obj, depth) => [
+      stringify(obj.key, obj.value1, depth, '-'),
+      stringify(obj.key, obj.value2, depth, '+'),
+    ],
+    nested: (obj, depth, innerFormat) => stringify(
+      obj.key,
+      innerFormat(obj.value1, depth + 4),
+      depth,
+      ' ',
+    ),
+  };
+  const format = (diffTree) => {
+    const innerFormat = (innerDiffTree, depth) => {
+      const strings = innerDiffTree
+        .flatMap((node) => mapping[node.type](node, depth, innerFormat));
+      const framedStrigs = ['{', ...strings, tab.repeat(depth) + '}'];
+      return framedStrigs.join('\n');
+    };
+  
+    return innerFormat(diffTree, 0);
+  };
+   const aaa = genDiffTree(data1, data2);
+   console.log(format(aaa));
 
-  const aaa = ((genDiffTree(data1, data2)).map(mapping)).join('\n');
-  console.log(`{\n${aaa}\n}`);
+
+
+  
+  
