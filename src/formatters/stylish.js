@@ -1,8 +1,10 @@
-import genDiffTree from './gendiff1.js';
+import genDiffTree from '../gendiff1.js';
 import fs from 'fs';
 import path from 'path';
-import parse from './parsers.js';
+import parse from '../parsers.js';
 import _ from 'lodash';
+import format1 from './plain.js';
+import jsonFormat from './jsonFormat.js';
 
 
 const tab = ' ';
@@ -58,7 +60,7 @@ const  stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} $
   const format = (diffTree) => {
     const innerFormat = (innerDiffTree, depth) => {
       const strings = innerDiffTree
-        .flatMap((node) => mapping[node.type](node, depth, innerFormat));
+        .flatMap((obj) => mapping[obj.type](obj, depth, innerFormat));
       const framedStrigs = ['{', ...strings, tab.repeat(depth) + '}'];
       return framedStrigs.join('\n');
     };
@@ -66,7 +68,7 @@ const  stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} $
     return innerFormat(diffTree, 0);
   };
    const aaa = genDiffTree(data1, data2);
-   console.log(format(aaa));
+   console.log(jsonFormat(aaa));
 
 
 
