@@ -1,4 +1,4 @@
-import genDiffTree from '../gendiff1.js';
+import genDiffTree from '../genDiffTree.js';
 import fs from 'fs';
 import path from 'path';
 import parse from '../parsers.js';
@@ -67,8 +67,9 @@ const  stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} $
   
     return innerFormat(diffTree, 0);
   };
-   const aaa = genDiffTree(data1, data2);
-   console.log(jsonFormat(aaa));
+   //const aaa = genDiffTree(data1, data2);
+   //console.log(format1(aaa));
+   export default format;
 
 
 

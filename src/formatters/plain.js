@@ -29,7 +29,7 @@ const format1 = (diffTree) => {
         return mapping[type](property, obj, innerFormat);
       };
   
-      return diff.flatMap(callback).filter(removeEmptyStrings).join('\n');
+      return diff.map(callback).filter(removeEmptyStrings).join('\n');
     };
   
     return innerFormat(diffTree, '');
