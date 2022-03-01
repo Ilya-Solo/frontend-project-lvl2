@@ -7,7 +7,6 @@ import genDiff from '../index.js';
 
 const require = createRequire(import.meta.url);
 const packageConfig = require('../package.json');
-
 const { version, description } = packageConfig;
 
 program
@@ -16,7 +15,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .option('-f, --format [type]', 'output format', 'stylish')
   .action((filepath1, filepath2) => {
-    console.log(genDiff(filepath1, filepath2, program.format));
+    console.log(genDiff(filepath1, filepath2, program.opts().format));
   });
 
 

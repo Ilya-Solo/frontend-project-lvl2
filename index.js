@@ -16,7 +16,7 @@ const getData = (configFilePath) => {
 
 
     
-export default (filePathBefore, filePathAfter, outputFormatterType = 'plain') => {
+export default (filePathBefore, filePathAfter, outputFormatterType ) => {
     const dataBefore = getData(filePathBefore);
     const dataAfter = getData(filePathAfter); 
     const diffTree = genDiffTree(dataBefore, dataAfter);

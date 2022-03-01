@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+const tab = ' ';
 const render = (value, depth, stringify) => {
   
   if (!_.isObject(value)) {
