@@ -8,9 +8,4 @@ const formaters = {
     json: (data) => json(data),
 };
   
-export default (data, type) => {
-    if(type === 'json') return json(data);
-    if(type === 'plain') return plain(data);
-    if(type === 'stylish') return stylish(data);
-    return 'piska';
-};
+export default (data, type) => formaters[type](data);
