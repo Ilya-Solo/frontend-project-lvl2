@@ -20,7 +20,7 @@ const mapping = {
     nested: (property, obj, innerFormat) => innerFormat(obj.value1, property),
 }
 const removeEmptyStrings = (string) => string !== '';
-const format1 = (diffTree) => {
+const format = (diffTree) => {
     const innerFormat = (diff, path) => {
       const callback = (obj) => {
         const { key, type } = obj;
@@ -34,4 +34,4 @@ const format1 = (diffTree) => {
   
     return innerFormat(diffTree, '');
   };
- export default format1;
+ export default format;
