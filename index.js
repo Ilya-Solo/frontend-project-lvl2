@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import parse from './src/parsers.js';
 import genDiffTree from "./src/genDiffTree.js";
-import jsonFormat from "./src/formatters/jsonFormat.js"
+import json from "./src/formatters/jsonFormat.js"
 import plain from "./src/formatters/plain.js"
 import stylish from "./src/formatters/stylish.js"
 
@@ -16,14 +16,19 @@ const getData = (configFilePath) => {
     return parse(data, extensionName);
   };
 
-export default (file1, file2, format) => {
-    const formatters = {
-        plain: plain(),
-        json: jsonFormat(),
-        stylish: stylish()
-    }
-    const file1Data = getData(file1);
-    const file2Data = getData(file2);
-    return formatters[format](genDiffTree(file1Data, file2Data));
-
-}
+const formaters = {
+    stylish,
+    plain,
+    json,
+};
+  
+const format = (data, type) => formaters[type](data);
+    
+export default (filePathBefore, filePathAfter, outputFormatterType ) => {
+    const dataBefore = getData(filePathBefore);
+    const dataAfter = getData(filePathAfter);
+    const diffTree = genDiffTree(dataBefore, dataAfter);
+    const formattedDiffTree = format(diffTree, outputFormatterType);
+  
+    return formattedDiffTree;
+  };
