@@ -1,30 +1,4 @@
-import genDiffTree from '../genDiffTree.js';
-import fs from 'fs';
-import path from 'path';
-import parse from '../parsers.js';
 import _ from 'lodash';
-import format1 from './plain.js';
-import jsonFormat from './jsonFormat.js';
-
-
-const tab = ' ';
-
-
-
-
-
-
-const getData = (configFilePath) => {
-    const absolutePath = path.resolve(configFilePath);
-    const extensionName = path.extname(absolutePath).slice(1);
-    const data = fs.readFileSync(absolutePath, 'utf8');
-    
-    return parse(data, extensionName);
-  };
-  const data1 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/Before.json');
-  const data2 = getData('/home/user/Рабочий стол/frontend-project-lvl2/__fixtures__/After.json');
-
-
 
 const render = (value, depth, stringify) => {
   
@@ -67,8 +41,7 @@ const  stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} $
   
     return innerFormat(diffTree, 0);
   };
-   //const aaa = genDiffTree(data1, data2);
-   //console.log(format1(aaa));
+   
    export default format;
 
 
