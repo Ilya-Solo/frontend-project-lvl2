@@ -1,14 +1,9 @@
-
 import _ from 'lodash';
-
-
-
-
 
 const genDiffTree = (dataBefore, dataAfter) => {
   const keysBefore = _.keys(dataBefore);
   const keysAfter = _.keys(dataAfter);
-  const unsortedKeys = _.union(keysBefore, keysAfter); 
+  const unsortedKeys = _.union(keysBefore, keysAfter);
   const sortedKeys = unsortedKeys.sort();
 
   const defineKeyParams = (key) => {
@@ -19,41 +14,39 @@ const genDiffTree = (dataBefore, dataAfter) => {
       return {
         key,
         type: 'nested',
-        value1: genDiffTree(value1, value2)
-      }
-  }
+        value1: genDiffTree(value1, value2),
+      };
+    }
     if (!_.has(dataBefore, key)) {
       return {
         key,
         type: 'added',
-        value2
-      }
+        value2,
+      };
     }
     if (!_.has(dataAfter, key)) {
       return {
         key,
         type: 'removed',
-        value1
-      }
-    } 
+        value1,
+      };
+    }
     if (value1 !== value2) {
       return {
         key,
         type: 'changed',
         value1,
-        value2
-      }
+        value2,
+      };
     }
-    
+
     return {
       key,
       type: 'unchanged',
-      value1: dataBefore[key]
-    }
-  }
+      value1: dataBefore[key],
+    };
+  };
   return sortedKeys.map(defineKeyParams);
-} 
+};
 
 export default genDiffTree;
-
-
