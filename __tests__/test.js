@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import gendiff from '../src';
+import gendiff from '../index.js';
 
 const interExtensionNames = ['json', 'yml'];
 
