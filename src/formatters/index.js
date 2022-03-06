@@ -1,5 +1,5 @@
 import json from './jsonFormat.js';
-import format from './plain.js';
+
 import plain from './plain.js';
 import stylish from './stylish.js';
 
