@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import fs from 'fs';
 import path from 'path';
 import gendiff from '../index.js';
@@ -5,8 +6,8 @@ import gendiff from '../index.js';
 const interExtensionNames = ['json', 'yml'];
 
 const getFilePath = (extensionNames) => extensionNames.map((extensionName) => ([
-  path.resolve(__dirname, `__fixtures__/Before.${extensionName}`),
-  path.resolve(__dirname, `__fixtures__/After.${extensionName}`),
+  path.resolve( `__fixtures__/Before.${extensionName}`),
+  path.resolve( `__fixtures__/After.${extensionName}`),
 ]));
 
 const getResultPath = (format) => {

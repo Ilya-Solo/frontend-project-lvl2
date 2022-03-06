@@ -1,20 +1,23 @@
 ---
-common:
+common: 
   follow: false
   setting1: Value 1
-  setting3:
-    key: value
-    key2:
-      key3: value3
+  setting3: null
   setting4: blah blah
-  setting5:
+  setting5: 
     key5: value5
   setting6:
     key: value
     ops: vops
-group1:
+    doge: 
+      wow: so much
+group1: 
   foo: bar
-  baz: 324
+  baz: bars
   nest: str
-group3:
+group3: 
+  deep: 
+    id:
+      number: 45
   fee: 100500
+    
