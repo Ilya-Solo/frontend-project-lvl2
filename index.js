@@ -14,7 +14,7 @@ const getData = (configFilePath) => {
   return parse(data, extensionName);
 };
 
-export default (filePathBefore, filePathAfter, outputFormatterType) => {
+export default (filePathBefore, filePathAfter, outputFormatterType = 'stylish') => {
   const dataBefore = getData(filePathBefore);
   const dataAfter = getData(filePathAfter);
   const diffTree = genDiffTree(dataBefore, dataAfter);
