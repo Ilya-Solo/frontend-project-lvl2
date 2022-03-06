@@ -1,10 +1,11 @@
 import _ from 'lodash';
-
+import fp from 'lodash/fp.js'
+console.log(fp);
 const genDiffTree = (dataBefore, dataAfter) => {
   const keysBefore = _.keys(dataBefore);
   const keysAfter = _.keys(dataAfter);
   const unsortedKeys = _.union(keysBefore, keysAfter);
-  const sortedKeys = [...unsortedKeys].sort();
+  const sortedKeys = _.sortBy(unsortedKeys, (o) => o.toLowerCase());
 
   const defineKeyParams = (key) => {
     const value1 = dataBefore[key];
