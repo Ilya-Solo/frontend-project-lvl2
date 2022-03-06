@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-
 const genDiffTree = (dataBefore, dataAfter) => {
   const keysBefore = _.keys(dataBefore);
   const keysAfter = _.keys(dataAfter);
