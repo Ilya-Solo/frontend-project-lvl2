@@ -2,14 +2,13 @@ import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { test, expect } from '@jest/globals';
-import _ from 'lodash';
 import genDiff from '../index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const fileName = fileURLToPath(import.meta.url);
+const dirname1 = dirname(fileName);
 
 const getFixturePath = (filename, ext) => path
-  .join(__dirname, '..', '__fixtures__', `${filename}.${ext}`);
+  .join(dirname1, '..', '__fixtures__', `${filename}.${ext}`);
 
 const getExpectedResult = (outputFormatterType) => {
   const expectedResultFileName = `diff-${(outputFormatterType)}`;

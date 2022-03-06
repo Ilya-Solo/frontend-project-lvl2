@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Ilka228/frontend-project-lvl2#readme",
   "dependencies": {
+    "@jest/globals": "^27.5.1",
     "commander": "^8.3.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
