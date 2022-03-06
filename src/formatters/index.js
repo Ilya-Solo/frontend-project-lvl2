@@ -1,4 +1,5 @@
 import json from './jsonFormat.js';
+import format from './plain.js';
 import plain from './plain.js';
 import stylish from './stylish.js';
 
@@ -7,5 +8,5 @@ const formaters = {
   plain: (data) => plain(data),
   json: (data) => json(data),
 };
-
-export default (data, type) => formaters[type](data);
+const formater = (data, type) => formaters[type](data);
+export default formater;
