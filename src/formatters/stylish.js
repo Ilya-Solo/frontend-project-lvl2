@@ -8,9 +8,9 @@ const render = (value, depth, stringify) => {
   if (!_.isObject(value)) {
     return value;
   }
-  const newDepth = depth + addTab;
-  const convertObjectToString = ([key, objectValue]) => `${stringify(key, render(objectValue, newDepth, stringify), newDepth, ' ')}`;
-  return `{\n${(Object.entries(value).map(convertObjectToString)).join('\n')}\n${tab.repeat(newDepth - decreaseTab)} }`;
+  const tabCount = depth + addTab;
+  const convertObjectToString = ([key, objectValue]) => `${stringify(key, render(objectValue, tabCount, stringify), tabCount, ' ')}`;
+  return `{\n${(Object.entries(value).map(convertObjectToString)).join('\n')}\n${tab.repeat(tabCount - decreaseTab)} }`;
 };
 const stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} ${key}: ${render(value, depth, stringify)}`;
 
