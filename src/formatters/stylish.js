@@ -1,13 +1,16 @@
 import _ from 'lodash';
 
 const tab = ' ';
+const addTab = 4;
+const decreaseTab = 1;
+
 const render = (value, depth, stringify) => {
   if (!_.isObject(value)) {
     return value;
   }
-  const newDepth = depth + 4;
+  const newDepth = depth + addTab;
   const convertObjectToString = ([key, objectValue]) => `${stringify(key, render(objectValue, newDepth, stringify), newDepth, ' ')}`;
-  return `{\n${(Object.entries(value).map(convertObjectToString)).join('\n')}\n${tab.repeat(newDepth - 1)} }`;
+  return `{\n${(Object.entries(value).map(convertObjectToString)).join('\n')}\n${tab.repeat(newDepth - decreaseTab)} }`;
 };
 const stringify = (key, value, depth, sign) => `${tab.repeat(depth)}  ${sign} ${key}: ${render(value, depth, stringify)}`;
 
@@ -22,7 +25,7 @@ const mapping = {
   ],
   nested: (obj, depth, innerFormat) => stringify(
     obj.key,
-    innerFormat(obj.value1, depth + 4),
+    innerFormat(obj.value1, depth + addTab),
     depth,
     ' ',
   ),

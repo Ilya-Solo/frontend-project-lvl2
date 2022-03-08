@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import parse from './src/parsers.js';
-import genDiffTree from './src/genDiffTree.js';
-import format from './src/formatters/index.js';
+import parse from './parsers.js';
+import genDiffTree from './genDiffTree.js';
+import format from './formatters/index.js';
 
 const getData = (configFilePath) => {
   const filePath = configFilePath;
