@@ -1,42 +1,31 @@
+
+# Difference generator
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Ilka228/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Ilka228/frontend-project-lvl2/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/933d6f84e1a35a54c17d/maintainability)](https://codeclimate.com/github/Ilka228/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/933d6f84e1a35a54c17d/test_coverage)](https://codeclimate.com/github/Ilka228/frontend-project-lvl2/test_coverage)
 ![Node CI](https://github.com/Ilka228/frontend-project-lvl2/workflows/github-actions/badge.svg)
 
-# Вычислитель отличий
 
-## frontend-project-lvl2
+### Conosle utility for config files comparation
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/69bb30cc846a15ac8c0b/maintainability)](https://codeclimate.com/github/san4ezz87/frontend-project-lvl2/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/69bb30cc846a15ac8c0b/test_coverage)](https://codeclimate.com/github/san4ezz87/frontend-project-lvl2/test_coverage) [![](https://github.com/san4ezz87/frontend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/san4ezz87/frontend-project-lvl2/actions)
+To **compare** files type **`gendiff './pathOne' '../pathTwo'`** into the terminal. You can use **absolute file pathes** as well as **relative** ones
 
-### Консольная утилита для сравнения конфигурационных файлов
+### Usage options
+  
 
-### Установка
+#### JSON and YAML files comparation
+To compare **JSON** or **YAML** files type **`gendiff './pathOne' '../pathTwo'`** where `'./pathOne'` and `'../pathTwo'` your file pathes
+<br/> You can compare  two **JSON** or two **YAML** files **only**
 
-```bash
-  npm i frontend-project-lvl2-by-alex-smirnov
-```
+#### Output formats
+##### Plain
+To get plain output format type **`gendiff --format plain './pathOne' '../pathTwo'`**
 
-Для сравнения файлов нужно передать в функцию genDiff('./pathOne', '../pathTwo') два аргуменат как относительный ```../somefile```  так и абсолютный ```/somedir/somefile``` пути.
+##### Stylish
+To get stylish output format type **`gendiff --format stylish './pathOne' '../pathTwo'`**
 
-### Примеры использования консольной утилиты
-  нужно передать путь до файла как  относительный так и абсолютный
+##### JSON
+To get JSON output format type **`gendiff --format json './pathOne' '../pathTwo'`**
 
-### JSON
-[![asciicast](https://asciinema.org/a/enAfaro6OhcDEEfLHosuDaLBY.svg)](https://asciinema.org/a/enAfaro6OhcDEEfLHosuDaLBY)
-
-### YAML
-[![asciicast](https://asciinema.org/a/LWvBDluGu4fWTusXEbvqJf3fV.svg)](https://asciinema.org/a/LWvBDluGu4fWTusXEbvqJf3fV)
-
-### ini
-[![asciicast](https://asciinema.org/a/rQ3s3ESFLO4wBq2unJaIDoLYN.svg)](https://asciinema.org/a/rQ3s3ESFLO4wBq2unJaIDoLYN)
-
-### Recursive structure
-[![asciicast](https://asciinema.org/a/VZscmBjsEOJ1kyNA21df7Xd2N.svg)](https://asciinema.org/a/VZscmBjsEOJ1kyNA21df7Xd2N)
-
-### Recursive structure plain
-[![asciicast](https://asciinema.org/a/59Y7Lf3nMvKwAz1sGmIczcxwm.svg)](https://asciinema.org/a/59Y7Lf3nMvKwAz1sGmIczcxwm) 
-
-### Recursive structure json
-[![asciicast](https://asciinema.org/a/q0KLQm95jWmbRqzOmz6eIm89R.svg)](https://asciinema.org/a/q0KLQm95jWmbRqzOmz6eIm89R)
